@@ -30,7 +30,7 @@ def main():
     print(acc)
     print(acc.balance)
 
-main()
+
 
 
 
