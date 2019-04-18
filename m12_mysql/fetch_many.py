@@ -5,15 +5,14 @@ cursor = None
 try:
     conn = mysql.connector.connect(database='db01',user='root',password='choumysql')
     cursor = conn.cursor();
-    sql = "select ename, hiredate, salary from employee where empno = %s"
-    empno = eval(input("employee no : "))
-    cursor.execute(sql,(empno,))
-    emps = cursor.fetchone()
-    if emps is not None:
-        print(emps)
-        print("name={}, hiredate= {},salary= {}".format(emps[0],emps[1],emps[2]))
-    else:
-        print('No data')
+    sql = "select ename, hiredate, salary from employee where title = %s and deptno = %s"
+    title = 'manager'
+    deptno = 200
+    cursor.execute(sql,(title,deptno))
+
+    for ename, hiredate, salary in cursor:
+        print('name={},hiredate={},salary={}'.format(ename,hiredate,salary))
+    print("total",cursor.rowcount,"employees")
 
 
 except mysql.connector.Error as err:

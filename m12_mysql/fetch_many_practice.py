@@ -5,16 +5,13 @@ cursor = None
 try:
     conn = mysql.connector.connect(database='db01',user='root',password='choumysql')
     cursor = conn.cursor();
-    sql = "select ename, hiredate, salary from employee"
-    cursor.execute(sql)
-    emps = cursor.fetchall()
+    sql = "select ename, hiredate, salary from employee where ename like %s"
+    ename = input('輸入名稱 : ')
+    ename1 =str('%'+ename+'%')
+    cursor.execute(sql,(ename1,))
 
-    for ename, hiredate, salary in emps:
+    for ename, hiredate, salary in cursor:
         print('name={},hiredate={},salary={}'.format(ename,hiredate,salary))
-    print("=============================================")
-    for emp in emps:
-        print(emp)
-        print('name={} ,hiredate={} ,salary={}'.format(emp[0],emp[1],emp[2]))
     print("total",cursor.rowcount,"employees")
 
 

@@ -5,6 +5,11 @@ cursor = None
 try:
     conn = mysql.connector.connect(database='db01',user='root',password='choumysql')
     cursor = conn.cursor();
+    upd = "update employee set salary = %s where empno = %s"
+    upd_data=(50000,1001)
+    cursor.execute(upd,upd_data)
+    conn.commit()
+
     sql = "select ename, hiredate, salary from employee where empno = %s"
     empno = eval(input("employee no : "))
     cursor.execute(sql,(empno,))
